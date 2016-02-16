@@ -18,6 +18,15 @@ abstract class Container {
 	const TABS_HEAD = 2;
 
 	/**
+	 * The type of the container -- e.g. theme_options or custom_fields. This
+	 * information could be extracted from the class name, but is stored in
+	 * this property for convenience.
+	 * 
+	 * @var string
+	 */
+	public $type;
+
+	/**
 	 * List of registered unique panel identificators
 	 *
 	 * @see verify_unique_panel_id()
