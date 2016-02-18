@@ -4,6 +4,7 @@ namespace Carbon_Fields\Field;
 
 use Carbon_Fields\Datastore\Datastore_Interface;
 use Carbon_Fields\Exception\Incorrect_Syntax_Exception;
+use Carbon_Fields\Support\Str;
 
 /**
  * Base field class.
@@ -163,7 +164,7 @@ class Field {
 	 * @return object $field
 	 **/
 	public static function factory( $type, $name, $label = null ) {
-		$type = str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $type ) ) );
+		$type = Str::snake_camel_case($type);
 
 		$class = __NAMESPACE__ . '\\' . $type . '_Field';
 
@@ -380,7 +381,7 @@ class Field {
 	 * @param string $name Field name, either sanitized or not
 	 **/
 	public function set_name( $name ) {
-		$name = preg_replace( '~\s+~', '_', mb_strtolower( $name ) );
+		$name = Str::snake_case($name);
 
 		if ( empty( $name ) ) {
 			Incorrect_Syntax_Exception::raise('Field name can\'t be empty');
@@ -389,7 +390,6 @@ class Field {
 		if ( $this->name_prefix && strpos( $name, $this->name_prefix ) !== 0 ) {
 			$name = $this->name_prefix . $name;
 		}
-
 
 		$this->name = $name;
 	}
@@ -450,7 +450,7 @@ class Field {
 			$label = preg_replace( '~^crb_~', '', $label );
 
 			// split the name into words and make them capitalized
-			$label = mb_convert_case( str_replace( '_', ' ', $label ), MB_CASE_TITLE );
+			$label = Str::ucwords( str_replace( '_', ' ', $label ) );
 		}
 
 		$this->label = $label;

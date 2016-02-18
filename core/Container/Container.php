@@ -5,6 +5,7 @@ namespace Carbon_Fields\Container;
 use Carbon_Fields\Field\Field;
 use Carbon_Fields\Datastore\Datastore_Interface;
 use Carbon_Fields\Exception\Incorrect_Syntax_Exception;
+use Carbon_Fields\Support\Str;
 
 /**
  * Base container class. 
